@@ -3,8 +3,8 @@ package main
 
 import "C"
 import (
-	"common/cgo/sub"
 	"common/cgo/util"
+	"fmt"
 )
 
 func main() {
@@ -16,6 +16,12 @@ func main() {
 	////打印：c的print慢于go之后的println
 	//fmt.Println(s)
 
-	sub.InvokeQsort()
-	util.SayHello()
+	//sub.InvokeQsort()
+	//util.SayHello()
+
+	fmt.Println(util.BytesToString([]byte("1234")))
+	var m map[int]int
+	if _, ok := m[1]; ok {
+		//就是map是nil也不会报错
+	}
 }

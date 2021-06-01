@@ -60,6 +60,27 @@ func CIntPtrToSlice(cip *C.int, length, capacity int) []int32 {
 }
 
 
+func BytesToString(bs []byte) string {
+	//sh := reflect.StringHeader{
+	//	Data: uintptr(unsafe.Pointer(&bs)),
+	//	Len:  len(bs),
+	//}
+	//sh ptr => string ptr => evaluate
+	//return *(*string)(unsafe.Pointer(&sh))
+	//bs ptr => pointer => *string => evaluate
+	return *(*string)(unsafe.Pointer(&bs))
+}
+
+func StringToBytes(s string) []byte {
+	strhp := (*reflect.StringHeader)(unsafe.Pointer(&s))
+	bh := reflect.SliceHeader{
+		Data: strhp.Data,
+		Len:  strhp.Len,
+		Cap:  strhp.Len,
+	}
+	return *(*[]byte)(unsafe.Pointer(&bh))
+}
+
 
 func Qsort(arr *C.int, length int) *C.int {
 	return C.gsort(arr, C.int(length))
